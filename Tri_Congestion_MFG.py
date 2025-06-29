@@ -29,7 +29,7 @@ class TriStateCongestionMFG:
     rho0_s2: float = 0.0
 
     # historiques remplis par run()
-    hist_E_pi: List[np.ndarray] = field(init=False, default_factory=list)  # (ρ0,ρ1,ρ2)
+    hist_E_pi: List[np.ndarray] = field(init=False, default_factory=list) 
     hist_pi:   List[np.ndarray] = field(init=False, default_factory=list)
 
     # ---------- Policy ----------
@@ -133,32 +133,13 @@ def plot_nig_heatmap(
     model_cls=TriStateCongestionMFG,
     model_kwargs=None,
 ):
-    """
-    Affiche une *heat-map* 2D du NIG final dans l’espace des politiques (α₁, α₂).
-
-    Paramètres
-    ----------
-    H, L1, L2   : hyper-paramètres du jeu (horizon et coefficients de congestion)
-    n_pts       : nombre de points sur chaque axe (=> résolution n_pts × n_pts)
-    alpha1_bounds, alpha2_bounds : bornes [min, max] pour chaque alpha
-    cmap        : colormap matplotlib
-    model_cls   : classe MFG (par défaut TriStateCongestionMFG)
-    model_kwargs: dict optionnel pour passer d’autres kwargs au constructeur
-    """
     model_kwargs = model_kwargs or {}
 
-    # ------------------------------------------------------------------
-    # Grille d’alphas
-    # ------------------------------------------------------------------
     alpha1_grid = np.linspace(*alpha1_bounds, n_pts)
     alpha2_grid = np.linspace(*alpha2_bounds, n_pts)
 
-    # Tableau où l’on stocke le NIG final
     nig_map = np.zeros((n_pts, n_pts))
 
-    # ------------------------------------------------------------------
-    # Calcul du NIG pour chaque couple (α₁, α₂)
-    # ------------------------------------------------------------------
     for i, a1 in enumerate(alpha1_grid):
         for j, a2 in enumerate(alpha2_grid):
             game = model_cls(
@@ -167,11 +148,8 @@ def plot_nig_heatmap(
                 L2=L2,
                 **model_kwargs,
             )
-            nig_map[j, i] = game.NIG(a1, a2)  # j = axe vertical (α₂), i = horizontal (α₁)
+            nig_map[j, i] = game.NIG(a1, a2) 
 
-    # ------------------------------------------------------------------
-    # Affichage de la heat-map
-    # ------------------------------------------------------------------
     plt.figure(figsize=(6, 5))
     im = plt.imshow(
         nig_map,
