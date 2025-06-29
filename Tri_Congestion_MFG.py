@@ -83,7 +83,7 @@ class TriStateCongestionMFG:
         for _ in range(self.H):
 
             self.hist_E_pi.append(
-                self._next_rho(self.hist_E_pi[-1], alpha1=1.0, alpha2=0.0)
+                self._next_rho(self.hist_E_pi[-1], alpha1, alpha2)
             )
 
             self.hist_pi.append(
@@ -120,8 +120,6 @@ class TriStateCongestionMFG:
         hist = np.array(self.hist_pi)[:-1]          # t = 0 … H-1
         return np.sum(hist[:, 1] + hist[:, 2])
     
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### Affichage d’une heat-map du NIG final dans l’espace des politiques 
 
 def plot_nig_heatmap(

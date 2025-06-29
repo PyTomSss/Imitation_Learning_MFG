@@ -56,7 +56,7 @@ class CrowdAvoidanceMFG:
 
         for _ in range(self.H):
             self.hist_E_pa.append(
-                self.update_rho(self.hist_E_pa[-1], alpha=1.0, variant="E_pa")
+                self.update_rho(self.hist_E_pa[-1], alpha=alpha, variant="E_pa")
             )
             self.hist_pa.append(
                 self.update_rho(self.hist_pa[-1],   alpha=alpha, variant="pa")
